@@ -1,15 +1,14 @@
 package com.springheaven.securityapp.controller;
 
-public class HiController {
-	
-	public String sayHi() {
-		return "say Hi";
-	}
-	
-	
-	
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-	public String sayBye() {
+@RestController
+public class HiController {
+
+	// hi
+	@GetMapping(value = "/hi")
+	public String sayHi() {
 		return "say Hi";
 	}
 
