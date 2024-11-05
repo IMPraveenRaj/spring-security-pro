@@ -11,5 +11,11 @@ public class HiController {
 	public String sayHi() {
 		return "say Hi";
 	}
+	
+	
+	@GetMapping(value = "/hello")
+	public String sayHello() {
+		return "say Hello";
+	}
 
 }
