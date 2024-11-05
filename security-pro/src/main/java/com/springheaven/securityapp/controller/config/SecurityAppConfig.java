@@ -81,15 +81,17 @@ public class SecurityAppConfig {
 			
 			/*authorize.requestMatchers("/hello").permitAll();
 			authorize.requestMatchers("/bye").denyAll();*/
-			authorize.requestMatchers(new MvcRequestMatcher(handlerMappingIntrospector(), "/hi")).authenticated()
+			authorize.
+			requestMatchers(new MvcRequestMatcher(handlerMappingIntrospector(), "/hi")).authenticated()
              // Use AntPathRequestMatcher for JSP endpoints or other file types
-             .requestMatchers(new AntPathRequestMatcher("/register")).permitAll()
+             .requestMatchers(new AntPathRequestMatcher("/WEB-INF/view/**")).permitAll()
              // Permit all other requests
              .anyRequest().permitAll();
 		});
 
 		httpSecurity.formLogin(Customizer.withDefaults());
 		httpSecurity.httpBasic(Customizer.withDefaults());
+		httpSecurity.csrf().disable();
 //		httpSecurity.formLogin();
 		// httpSecurity.httpBasic();
 
