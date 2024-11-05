@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @EnableWebSecurity(debug = true)
@@ -76,9 +78,14 @@ public class SecurityAppConfig {
 		// httpSecurity.authorizeHttpRequests().anyRequest().permitAll();
 
 		httpSecurity.authorizeHttpRequests((authorize) -> {
-			authorize.anyRequest().authenticated();
-			authorize.requestMatchers("/hello").permitAll();
-			authorize.requestMatchers("/bye").denyAll();
+			
+			/*authorize.requestMatchers("/hello").permitAll();
+			authorize.requestMatchers("/bye").denyAll();*/
+			authorize.requestMatchers(new MvcRequestMatcher(handlerMappingIntrospector(), "/hi")).authenticated()
+             // Use AntPathRequestMatcher for JSP endpoints or other file types
+             .requestMatchers(new AntPathRequestMatcher("/register")).permitAll()
+             // Permit all other requests
+             .anyRequest().permitAll();
 		});
 
 		httpSecurity.formLogin(Customizer.withDefaults());
